@@ -6,6 +6,7 @@ type ToggleListProps = {
   setData: React.Dispatch<React.SetStateAction<Category[]>>;
   title: string;
   addButton: boolean;
+  exclusive: boolean;
 };
 
 export const ToggleList: React.FC<ToggleListProps> = ({
@@ -13,6 +14,7 @@ export const ToggleList: React.FC<ToggleListProps> = ({
   setData,
   title,
   addButton,
+  exclusive,
 }) => {
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [nodeList, setNodeList] = useState<React.ReactNode[]>([]);
@@ -58,8 +60,14 @@ export const ToggleList: React.FC<ToggleListProps> = ({
 
   const handleCategoryToggle = (name: string) => {
     //checks which element was pressed and gets the index
-    //remakes the whole array with map but with the correct toggle value changed
     let index = categoryList.findIndex((category) => category.name == name);
+
+    //Clears other toggled values if Exclusive parameter from parent is true
+    if (exclusive) {
+      handleClear();
+    }
+
+    //remakes the whole array with map but with the correct toggle value changed
     setCategoryList((prevState) => {
       return prevState.map((updatedCategoryList, i) => {
         if (i === index) {

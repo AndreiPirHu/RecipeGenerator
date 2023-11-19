@@ -1,23 +1,25 @@
 import { useState } from "react";
 import { ToggleList } from "./toggleList";
 
-export const TemperaturesList = () => {
+export const MealSize = () => {
   let dataToSend: Category[] = [
-    { name: "Cold", toggled: false },
-    { name: "Warm", toggled: false },
+    { name: "Snack", toggled: false },
+    { name: "Small", toggled: false },
+    { name: "Medium", toggled: false },
+    { name: "Big", toggled: false },
   ];
 
   const [data, setData] = useState<Category[]>(dataToSend);
-  let title = "Preferred temperatures";
+  let title = "Preferred Meal Size";
 
   return (
-    <div className="TemperaturesList">
+    <div className="MealSize">
       <ToggleList
         data={data}
         setData={setData}
         title={title}
         addButton={false}
-        exclusive={false}
+        exclusive={true}
       />
     </div>
   );

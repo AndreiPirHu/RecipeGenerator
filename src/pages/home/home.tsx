@@ -1,7 +1,10 @@
 import { CuisinesList } from "./cuisines";
 import "./home.css";
 import { IngredientsList } from "./ingredientsList";
+import { MealSize } from "./mealSize";
+import { PartySize } from "./partySize";
 import { TastesList } from "./tastes";
+import { TemperaturesList } from "./temperatures";
 import { TypeList } from "./types";
 
 export const Home = () => {
@@ -20,8 +23,9 @@ export const Home = () => {
           <CuisinesList />
           <TastesList />
           <TypeList />
-          <h3>Preferred Temperature</h3>
-          <h3>Meal size</h3>
+          <TemperaturesList />
+          <MealSize />
+          <PartySize />
           <h3>Preferred Time to make</h3>
           <h3>Special Focus</h3>
           <p>High calories</p>

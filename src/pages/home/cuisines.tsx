@@ -27,6 +27,7 @@ export const CuisinesList = () => {
         setData={setData}
         title={title}
         addButton={true}
+        exclusive={false}
       />
     </div>
   );

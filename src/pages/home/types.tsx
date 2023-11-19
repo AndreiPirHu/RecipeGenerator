@@ -10,6 +10,7 @@ export const TypeList = () => {
     { name: "Curry", toggled: false },
     { name: "Grill/Broil", toggled: false },
     { name: "Bake/Roast", toggled: false },
+    { name: "Dessert", toggled: false },
   ];
   const [data, setData] = useState<Category[]>(dataToSend);
   let title = "Preferred Types";
@@ -21,6 +22,7 @@ export const TypeList = () => {
         setData={setData}
         title={title}
         addButton={true}
+        exclusive={false}
       />
     </div>
   );

@@ -23,6 +23,7 @@ export const TastesList = () => {
         setData={setData}
         title={title}
         addButton={true}
+        exclusive={false}
       />
     </div>
   );
