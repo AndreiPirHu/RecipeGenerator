@@ -23,15 +23,21 @@ body {
 }
 
 /* CSS for IngredientsList*/
+
 #IngredientsList #input-container {
   display: flex;
   justify-content: center;
 }
 
 #IngredientsList #input-add {
+  height: 30px;
 }
 
-#IngredientsList #list {
+#IngredientsList #input-button {
+}
+
+/*#IngredientsList*/
+#list {
   padding: 0;
   margin: 20px auto;
   list-style: none;
@@ -39,21 +45,23 @@ body {
   flex-wrap: wrap;
   width: 80vw;
 }
-#IngredientsList .list-item {
+/*#IngredientsList*/
+.list-item {
   display: flex;
-  padding: 8px 16px;
+  padding: 4px 16px;
   margin: 4px 4px;
   border-radius: 16px;
   background-color: blue;
   color: white;
   font-size: 1.1rem;
 }
-#IngredientsList .list-item p {
+/*#IngredientsList*/
+.list-item p {
   margin: 0;
 }
 
 #IngredientsList .delete-item {
-  font-size: 2rem;
+  font-size: 1.7rem;
   background-color: transparent;
   border: none;
   color: #bfbfbf99;
@@ -63,4 +71,20 @@ body {
   align-items: center;
   margin-top: 2px;
   cursor: pointer;
+}
+
+/*CSS FOR TOGGLELIST*/
+
+#ToggleList .list-item {
+  background-color: transparent;
+  color: rgb(5, 5, 5);
+  font-size: 1.1rem;
+  border: 1px solid black;
+}
+
+#ToggleList .toggled {
+  background-color: green;
+  border: none;
+
+  padding: 5px 17px;
 }

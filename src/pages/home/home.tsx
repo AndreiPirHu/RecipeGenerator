@@ -1,5 +1,6 @@
 import "./home.css";
 import { IngredientsList } from "./ingredientsList";
+import { ToggleList } from "./toggleList";
 
 export const Home = () => {
   return (
@@ -14,6 +15,8 @@ export const Home = () => {
         </section>
         <section id="ingredients-section">
           <IngredientsList />
+          <h3>Preferred Cuisines</h3>
+          <ToggleList />
         </section>
       </main>
     </div>
