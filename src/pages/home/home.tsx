@@ -1,6 +1,7 @@
+import { CuisinesList } from "./cuisinesList";
 import "./home.css";
 import { IngredientsList } from "./ingredientsList";
-import { ToggleList } from "./toggleList";
+import { TastesList } from "./tastesList";
 
 export const Home = () => {
   return (
@@ -15,8 +16,17 @@ export const Home = () => {
         </section>
         <section id="ingredients-section">
           <IngredientsList />
-          <h3>Preferred Cuisines</h3>
-          <ToggleList />
+          <CuisinesList />
+          <TastesList />
+          <h3>Preferred Type</h3>
+          <h3>Preferred Temperature</h3>
+          <h3>Meal size</h3>
+          <h3>Preferred Time to make</h3>
+          <h3>Special Focus</h3>
+          <p>High calories</p>
+          <p>high protein</p>
+          <p>low calories</p>
+          <p>low carb</p>
         </section>
       </main>
     </div>

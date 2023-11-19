@@ -57,38 +57,6 @@ export const IngredientsList = () => {
   useEffect(() => {
     createList();
   }, [ingredientList]);
-  /*
-  const handleAddButton = () => {
-    let newIngredientkey: string = input.toLowerCase();
-    setListItems((prevState) => {
-      let newIngredient: React.ReactNode = (
-        <li key={newIngredientkey} className="list-item">
-          <p>{input}</p>
-          <button
-            onClick={() => handleDeleteButton(newIngredientkey)}
-            className="delete-item"
-          >
-            &times;
-          </button>
-        </li>
-      );
-
-      return [...prevState, newIngredient];
-    });
-  };
-
-  const handleDeleteButton = (key: string) => {
-    console.log("key " + key);
-    setListItems((prevState) => {
-      let updatedList = prevState.filter((item) => {
-        console.log(item as React.ReactElement);
-        return (item as React.ReactElement).key !== key;
-      });
-      console.log(updatedList);
-      return [updatedList];
-    });
-  };
-  */
 
   return (
     <div id="IngredientsList">

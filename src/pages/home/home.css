@@ -76,15 +76,30 @@ body {
 /*CSS FOR TOGGLELIST*/
 
 #ToggleList .list-item {
-  background-color: transparent;
-  color: rgb(5, 5, 5);
+  background-color: gray;
+  color: rgb(255, 255, 255);
   font-size: 1.1rem;
-  border: 1px solid black;
 }
 
 #ToggleList .toggled {
   background-color: green;
-  border: none;
+}
 
-  padding: 5px 17px;
+#ToggleList .add-button {
+  background-color: black;
+}
+
+#ToggleList .add-button input {
+  width: 50px;
+}
+
+#ToggleList .title-container {
+  display: flex;
+  align-items: center;
+}
+
+#ToggleList .title-container button {
+  height: 20px;
+  background-color: gray;
+  border-radius: 3px;
 }
