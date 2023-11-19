@@ -1,13 +1,17 @@
+import { CookingFatsList } from "./cookingFats";
 import { CuisinesList } from "./cuisines";
 import "./home.css";
 import { IngredientsList } from "./ingredientsList";
-import { MealSize } from "./mealSize";
-import { PartySize } from "./partySize";
+import { MealSizeList } from "./mealSize";
+import { PartySizeList } from "./partySize";
+import { SpecialFocusList } from "./specialFocus";
 import { TastesList } from "./tastes";
 import { TemperaturesList } from "./temperatures";
+import { TimeList } from "./time";
 import { TypeList } from "./types";
 
 export const Home = () => {
+  const askGPT = () => {};
   return (
     <div className="Home">
       <main>
@@ -17,21 +21,19 @@ export const Home = () => {
             Get personalized recipe recommendations based on items in your
             fridge
           </h3>
+          <button onClick={askGPT}>Ask GPT</button>
         </section>
         <section id="ingredients-section">
           <IngredientsList />
+          <CookingFatsList />
           <CuisinesList />
           <TastesList />
           <TypeList />
           <TemperaturesList />
-          <MealSize />
-          <PartySize />
-          <h3>Preferred Time to make</h3>
-          <h3>Special Focus</h3>
-          <p>High calories</p>
-          <p>high protein</p>
-          <p>low calories</p>
-          <p>low carb</p>
+          <MealSizeList />
+          <PartySizeList />
+          <TimeList />
+          <SpecialFocusList />
         </section>
       </main>
     </div>

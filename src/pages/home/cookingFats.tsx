@@ -1,23 +1,22 @@
 import { useState } from "react";
 import { ToggleList } from "./toggleList";
 
-export const PartySizeList = () => {
+export const CookingFatsList = () => {
   let dataTosend: Category[] = [
-    { name: "1", toggled: false },
-    { name: "2", toggled: false },
-    { name: "3", toggled: false },
-    { name: "4", toggled: false },
+    { name: "Butter", toggled: false },
+    { name: "Canola oil", toggled: false },
+    { name: "Olive oil", toggled: false },
   ];
   const [data, setData] = useState<Category[]>(dataTosend);
-  let title: string = "Party Size";
+  let title = "Preferred Cooking Fats";
   return (
-    <div className="PartySize">
+    <div className="CookingFatsList">
       <ToggleList
         data={data}
         setData={setData}
         title={title}
         addButton={true}
-        exclusive={true}
+        exclusive={false}
       />
     </div>
   );

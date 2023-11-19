@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ToggleList } from "./toggleList";
 
-export const MealSize = () => {
+export const MealSizeList = () => {
   let dataToSend: Category[] = [
     { name: "Snack", toggled: false },
     { name: "Small", toggled: false },
