@@ -1,16 +1,18 @@
 import "./home.css";
 import React, { useEffect, useState } from "react";
 
-interface ToggleListProps {
+type ToggleListProps = {
   data: Category[];
   setData: React.Dispatch<React.SetStateAction<Category[]>>;
   title: string;
-}
+  addButton: boolean;
+};
 
 export const ToggleList: React.FC<ToggleListProps> = ({
   data,
   setData,
   title,
+  addButton,
 }) => {
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [nodeList, setNodeList] = useState<React.ReactNode[]>([]);
@@ -36,7 +38,6 @@ export const ToggleList: React.FC<ToggleListProps> = ({
     <p onClick={() => setAddToggle(true)}>Add +</p>
   );
 
-  //TODO add cuisines from personalized list that is saved for each user later
   const addData = () => {
     setNodeList([]);
     for (let category of categoryList) {
@@ -74,7 +75,12 @@ export const ToggleList: React.FC<ToggleListProps> = ({
   };
 
   const handleAddCustomInput = (customInput: string) => {
-    if (customInput === "") {
+    if (
+      customInput === "" ||
+      categoryList.some((category) =>
+        category.name.toLowerCase().includes(input.toLowerCase())
+      )
+    ) {
       setAddToggle(false);
       return;
     }
@@ -132,9 +138,11 @@ export const ToggleList: React.FC<ToggleListProps> = ({
 
         <ul id="list">
           {nodeList}
-          <li className="list-item add-button">
-            {addToggle ? addInput : addText}
-          </li>
+          {addButton && (
+            <li className="list-item add-button">
+              {addToggle ? addInput : addText}
+            </li>
+          )}
         </ul>
       </div>
     </div>

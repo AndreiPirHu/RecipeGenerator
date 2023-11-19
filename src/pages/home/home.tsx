@@ -1,7 +1,8 @@
-import { CuisinesList } from "./cuisinesList";
+import { CuisinesList } from "./cuisines";
 import "./home.css";
 import { IngredientsList } from "./ingredientsList";
-import { TastesList } from "./tastesList";
+import { TastesList } from "./tastes";
+import { TypeList } from "./types";
 
 export const Home = () => {
   return (
@@ -18,7 +19,7 @@ export const Home = () => {
           <IngredientsList />
           <CuisinesList />
           <TastesList />
-          <h3>Preferred Type</h3>
+          <TypeList />
           <h3>Preferred Temperature</h3>
           <h3>Meal size</h3>
           <h3>Preferred Time to make</h3>

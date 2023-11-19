@@ -22,7 +22,12 @@ export const CuisinesList = () => {
   }, [data]);
   return (
     <div className="CuisinesList">
-      <ToggleList data={data} setData={setData} title={title} />
+      <ToggleList
+        data={data}
+        setData={setData}
+        title={title}
+        addButton={true}
+      />
     </div>
   );
 };
