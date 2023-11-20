@@ -12,7 +12,7 @@ export const TimeList = () => {
     { name: "60+ minutes", toggled: false },
   ];
   const [data, setData] = useState<Category[]>(dataTosend);
-  let title = "Preferred time to cook";
+  let title = "Max time to cook";
   return (
     <div className="Time">
       <ToggleList
@@ -20,7 +20,8 @@ export const TimeList = () => {
         setData={setData}
         title={title}
         addButton={false}
-        exclusive={false}
+        exclusive={true}
+        numberValue={false}
       />
     </div>
   );

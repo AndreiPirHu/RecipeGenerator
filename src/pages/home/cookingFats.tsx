@@ -17,6 +17,7 @@ export const CookingFatsList = () => {
         title={title}
         addButton={true}
         exclusive={false}
+        numberValue={false}
       />
     </div>
   );

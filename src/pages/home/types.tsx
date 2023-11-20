@@ -3,14 +3,14 @@ import { ToggleList } from "./toggleList";
 
 export const TypeList = () => {
   let dataToSend: Category[] = [
-    { name: "Soup", toggled: false },
-    { name: "Stew", toggled: false },
-    { name: "Sandwich", toggled: false },
-    { name: "Pasta", toggled: false },
-    { name: "Curry", toggled: false },
-    { name: "Grill/Broil", toggled: false },
-    { name: "Bake/Roast", toggled: false },
-    { name: "Dessert", toggled: false },
+    { name: "Soups", toggled: false },
+    { name: "Stews", toggled: false },
+    { name: "Sandwiches", toggled: false },
+    { name: "Pastas", toggled: false },
+    { name: "Currys", toggled: false },
+    { name: "Grills/Broils", toggled: false },
+    { name: "Bakes/Roasts", toggled: false },
+    { name: "Desserts", toggled: false },
   ];
   const [data, setData] = useState<Category[]>(dataToSend);
   let title = "Preferred Types";
@@ -23,6 +23,7 @@ export const TypeList = () => {
         title={title}
         addButton={true}
         exclusive={false}
+        numberValue={false}
       />
     </div>
   );

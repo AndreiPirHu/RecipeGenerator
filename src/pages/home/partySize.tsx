@@ -18,6 +18,7 @@ export const PartySizeList = () => {
         title={title}
         addButton={true}
         exclusive={true}
+        numberValue={true}
       />
     </div>
   );

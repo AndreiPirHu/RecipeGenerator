@@ -24,6 +24,7 @@ export const TastesList = () => {
         title={title}
         addButton={true}
         exclusive={false}
+        numberValue={false}
       />
     </div>
   );

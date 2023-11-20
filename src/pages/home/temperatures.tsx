@@ -18,6 +18,7 @@ export const TemperaturesList = () => {
         title={title}
         addButton={false}
         exclusive={false}
+        numberValue={false}
       />
     </div>
   );

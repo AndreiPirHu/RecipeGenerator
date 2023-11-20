@@ -6,7 +6,7 @@ export const SpecialFocusList = () => {
     { name: "High kcal", toggled: false },
     { name: "Low kcal", toggled: false },
     { name: "High protein", toggled: false },
-    { name: "High carbs", toggled: false },
+    { name: "Low carbs", toggled: false },
   ];
   const [data, setData] = useState<Category[]>(dataToSend);
   let title: string = "Special Focus";
@@ -18,6 +18,7 @@ export const SpecialFocusList = () => {
         title={title}
         addButton={true}
         exclusive={false}
+        numberValue={false}
       />
     </div>
   );

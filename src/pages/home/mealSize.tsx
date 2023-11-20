@@ -20,6 +20,7 @@ export const MealSizeList = () => {
         title={title}
         addButton={false}
         exclusive={true}
+        numberValue={false}
       />
     </div>
   );

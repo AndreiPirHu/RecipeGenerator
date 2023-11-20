@@ -7,6 +7,7 @@ type ToggleListProps = {
   title: string;
   addButton: boolean;
   exclusive: boolean;
+  numberValue: boolean;
 };
 
 export const ToggleList: React.FC<ToggleListProps> = ({
@@ -15,6 +16,7 @@ export const ToggleList: React.FC<ToggleListProps> = ({
   title,
   addButton,
   exclusive,
+  numberValue,
 }) => {
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [nodeList, setNodeList] = useState<React.ReactNode[]>([]);
@@ -30,7 +32,7 @@ export const ToggleList: React.FC<ToggleListProps> = ({
       onKeyDown={(e) => (e.key == "Enter" ? handleAddCustomInput(input) : "")}
       autoFocus
       onChange={(e) => setInput(e.target.value)}
-      type="text"
+      type={numberValue ? "number" : "text"}
       name="addInput"
       id="addInput"
     />

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./home.css";
+import { useDispatch } from "react-redux";
+import { actions } from "../../features/userPreferences";
 
 export const IngredientsList = () => {
   const [input, setInput] = useState<string>("");
@@ -7,6 +9,8 @@ export const IngredientsList = () => {
   const [list, setList] = useState<React.ReactNode[]>([]);
 
   const [ingredientList, setIngredientList] = useState<string[]>([]);
+
+  const dispatch = useDispatch();
 
   //make an empty array of objects
   //whenever i add a new ingredient with input i add an object to the array that has the name and index in it
@@ -56,6 +60,9 @@ export const IngredientsList = () => {
 
   useEffect(() => {
     createList();
+    dispatch(
+      actions.addPreference({ key: "ingredients", value: ingredientList })
+    );
   }, [ingredientList]);
 
   return (
