@@ -2,11 +2,13 @@ import OpenAI from "openai";
 import { useSelector } from "react-redux";
 
 import { RootState } from "../../features/rootReducer";
+import { useEffect } from "react";
 
 export const GetRecipes = () => {
   let userPreferences = useSelector(
     (state: RootState) => state.userPreferences
   );
+
   //template for the AI to know the format i want to receive
   let jsonTemplate = {
     title: "Creamy Korean Potato and Quorn Stir-Fry",
@@ -74,10 +76,10 @@ export const GetRecipes = () => {
       cuisineSnippet = "randomly";
     } else {
       for (let cuisine of jsonUserPreferenceTestData.cuisines) {
-        cuisineSnippet = cuisineSnippet.concat(cuisine.toLowerCase(), " or ");
+        cuisineSnippet = cuisineSnippet.concat(cuisine.toLowerCase(), "/");
       }
       //removes the final slash
-      cuisineSnippet = cuisineSnippet.slice(0, -4);
+      cuisineSnippet = cuisineSnippet.slice(0, -1);
     }
 
     //makes temperatures snippet
@@ -121,6 +123,20 @@ export const GetRecipes = () => {
       );
     }
     ingredientsSnippet = ingredientsSnippet.slice(0, -2);
+
+    //makes cooking fats snippet
+    if (jsonUserPreferenceTestData.cookingFats.length === 0) {
+      cookingFatsSnippet = "";
+    } else {
+      for (let cookingFat of jsonUserPreferenceTestData.cookingFats) {
+        cookingFatsSnippet = cookingFatsSnippet.concat(
+          cookingFat.toLowerCase(),
+          ", "
+        );
+      }
+      cookingFatsSnippet = cookingFatsSnippet.slice(0, -2);
+      cookingFatsSnippet = ", " + cookingFatsSnippet;
+    }
 
     //makes meal size snippet
     if (jsonUserPreferenceTestData.mealSize === "") {
@@ -167,7 +183,7 @@ export const GetRecipes = () => {
         ".";
     }
 
-    jsonUserPreferenceText = `Give me 3 different ${cuisineSnippet} inspired recipes of ${temperaturesSnippet}${typesSnippet} that${tastesSnippet} only use these ingredients: ${ingredientsSnippet}. It does not need to use them all, but cannot use any ingredients that are not here. The recipes need to be for a${mealSizeSnippet} meal for ${partySizeSnippet}${timeToCookSnippet}.${specialFocusSnippet}`;
+    jsonUserPreferenceText = `Give me 3 different ${cuisineSnippet} inspired recipes of ${temperaturesSnippet}${typesSnippet} that${tastesSnippet} only use these ingredients: ${ingredientsSnippet}${cookingFatsSnippet}. It does not need to use them all, but cannot use any ingredients that are not here. The recipes need to be for a${mealSizeSnippet} meal for ${partySizeSnippet}${timeToCookSnippet}.${specialFocusSnippet}`;
 
     console.log(jsonUserPreferenceText);
   };
@@ -200,5 +216,11 @@ export const GetRecipes = () => {
     });
     console.log(completion.choices[0].message.content);
   };
+
+  useEffect(() => {
+    //recreates the message to AI whenever values in redux change
+    createMessage();
+  }, [userPreferences]);
+
   return <button onClick={createMessage}>Ask GPT</button>;
 };

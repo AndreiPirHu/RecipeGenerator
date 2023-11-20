@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { ToggleList } from "./toggleList";
+import { useDispatch } from "react-redux";
+import { actions } from "../../features/userPreferences";
 
 export const CuisinesList = () => {
   let title: string = "Preferred Cuisines";
@@ -13,13 +15,21 @@ export const CuisinesList = () => {
   ];
   const [data, setData] = useState<Category[]>(dataTosend);
 
-  //have a datalist to send to the togglelist
-
-  //have a func that takes back in the list of toggled categories from the togglelist
+  ////// REDUX START/////////
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(data);
+    //filters all the objects that are toggled and then maps their name value to a new array
+    const dataForRedux: string[] = data
+      .filter((obj) => obj.toggled === true)
+      .map((obj) => obj.name);
+
+    //sends the new array to redux
+    dispatch(actions.addPreference({ key: "cuisines", value: dataForRedux }));
   }, [data]);
+
+  ////// REDUX END/////
+
   return (
     <div className="CuisinesList">
       <ToggleList

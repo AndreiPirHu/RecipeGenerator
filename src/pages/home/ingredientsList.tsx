@@ -10,8 +10,6 @@ export const IngredientsList = () => {
 
   const [ingredientList, setIngredientList] = useState<string[]>([]);
 
-  const dispatch = useDispatch();
-
   //make an empty array of objects
   //whenever i add a new ingredient with input i add an object to the array that has the name and index in it
   //whenever that array of objects is updated, the create list function is rerun
@@ -58,12 +56,17 @@ export const IngredientsList = () => {
     setIngredientList((prevState) => prevState.filter((item) => item !== name));
   };
 
+  ///////// REDUX START ///////////
+
+  const dispatch = useDispatch();
   useEffect(() => {
     createList();
     dispatch(
       actions.addPreference({ key: "ingredients", value: ingredientList })
     );
   }, [ingredientList]);
+
+  /////// REDUX END /////////
 
   return (
     <div id="IngredientsList">
