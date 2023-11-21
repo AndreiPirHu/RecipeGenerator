@@ -17,3 +17,14 @@ type Category = {
     timeToCook: string,
     specialFocus: string[],
 }
+
+type Recipe= {
+  title: string,
+  cuisine: string,
+  ingredients: string[],
+  instructions: string[]
+}
+
+type Recipes ={
+  recipes: Recipe[]
+}
