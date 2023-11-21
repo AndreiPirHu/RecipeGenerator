@@ -23,7 +23,6 @@ export const Home = () => {
           </h3>
         </section>
         <section id="ingredients-section">
-          <GetRecipes />
           <IngredientsList />
           <CookingFatsList />
           <CuisinesList />
@@ -34,6 +33,7 @@ export const Home = () => {
           <PartySizeList />
           <TimeList />
           <SpecialFocusList />
+          <GetRecipes />
         </section>
       </main>
     </div>

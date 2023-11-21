@@ -31,7 +31,6 @@ export const IngredientsList = () => {
   };
 
   const createList = () => {
-    console.log("creating new list");
     setList([]);
 
     for (let i = 0; i < ingredientList.length; i++) {

@@ -32,7 +32,7 @@ export const GetRecipes = () => {
       "Serve the creamy potato and quorn stir-fry over the cooked rice and garnish with sliced cucumber.",
     ],
   };
-
+  /*
   //testdata to test if it works
   let jsonUserPreferenceTestData: Preferences = {
     ingredients: [
@@ -52,13 +52,13 @@ export const GetRecipes = () => {
     timeToCook: "20-30 minutes",
     specialFocus: ["High protein"],
   };
-
+*/
   //string that is sent to AI
-  let jsonUserPreferenceText: string = "";
+  let userPreferenceMessage: string = "";
 
   const createMessage = () => {
     //resets text before remaking it
-    jsonUserPreferenceText = "";
+    userPreferenceMessage = "";
 
     let cuisineSnippet: string = "";
     let typesSnippet: string = "";
@@ -72,10 +72,10 @@ export const GetRecipes = () => {
     let specialFocusSnippet: string = "";
 
     //makes the cuisine snippet
-    if (jsonUserPreferenceTestData.cuisines.length === 0) {
+    if (userPreferences.cuisines.length === 0) {
       cuisineSnippet = "randomly";
     } else {
-      for (let cuisine of jsonUserPreferenceTestData.cuisines) {
+      for (let cuisine of userPreferences.cuisines) {
         cuisineSnippet = cuisineSnippet.concat(cuisine.toLowerCase(), "/");
       }
       //removes the final slash
@@ -83,9 +83,9 @@ export const GetRecipes = () => {
     }
 
     //makes temperatures snippet
-    if (jsonUserPreferenceTestData.temperatures.length === 0) {
+    if (userPreferences.temperatures.length === 0) {
     } else {
-      for (let temperature of jsonUserPreferenceTestData.temperatures) {
+      for (let temperature of userPreferences.temperatures) {
         temperaturesSnippet = temperaturesSnippet.concat(
           temperature.toLowerCase(),
           " or "
@@ -95,20 +95,20 @@ export const GetRecipes = () => {
     }
 
     //makes types snippet
-    if (jsonUserPreferenceTestData.types.length === 0) {
+    if (userPreferences.types.length === 0) {
       typesSnippet = "meals";
     } else {
-      for (let type of jsonUserPreferenceTestData.types) {
+      for (let type of userPreferences.types) {
         typesSnippet = typesSnippet.concat(type.toLowerCase(), "/");
       }
       typesSnippet = typesSnippet.slice(0, -1);
     }
 
     //makes tastes snippet
-    if (jsonUserPreferenceTestData.tastes.length === 0) {
+    if (userPreferences.tastes.length === 0) {
       tastesSnippet = "";
     } else {
-      for (let taste of jsonUserPreferenceTestData.tastes) {
+      for (let taste of userPreferences.tastes) {
         tastesSnippet = tastesSnippet.concat(taste.toLowerCase(), "/");
       }
       tastesSnippet = tastesSnippet.slice(0, -1);
@@ -116,7 +116,7 @@ export const GetRecipes = () => {
     }
 
     //makes ingredients snippet
-    for (let ingredient of jsonUserPreferenceTestData.ingredients) {
+    for (let ingredient of userPreferences.ingredients) {
       ingredientsSnippet = ingredientsSnippet.concat(
         ingredient.toLowerCase(),
         ", "
@@ -125,10 +125,10 @@ export const GetRecipes = () => {
     ingredientsSnippet = ingredientsSnippet.slice(0, -2);
 
     //makes cooking fats snippet
-    if (jsonUserPreferenceTestData.cookingFats.length === 0) {
+    if (userPreferences.cookingFats.length === 0) {
       cookingFatsSnippet = "";
     } else {
-      for (let cookingFat of jsonUserPreferenceTestData.cookingFats) {
+      for (let cookingFat of userPreferences.cookingFats) {
         cookingFatsSnippet = cookingFatsSnippet.concat(
           cookingFat.toLowerCase(),
           ", "
@@ -139,38 +139,38 @@ export const GetRecipes = () => {
     }
 
     //makes meal size snippet
-    if (jsonUserPreferenceTestData.mealSize === "") {
+    if (userPreferences.mealSize === "") {
       mealSizeSnippet = "";
     } else {
-      mealSizeSnippet = jsonUserPreferenceTestData.mealSize.toLowerCase();
+      mealSizeSnippet = userPreferences.mealSize.toLowerCase();
       mealSizeSnippet = " " + mealSizeSnippet + " sized";
     }
 
     //makes party size snippet
     if (
-      jsonUserPreferenceTestData.partySize === "" ||
-      jsonUserPreferenceTestData.partySize === "1" ||
-      jsonUserPreferenceTestData.partySize.includes("e")
+      userPreferences.partySize === "" ||
+      userPreferences.partySize === "1" ||
+      userPreferences.partySize.includes("e")
     ) {
       partySizeSnippet = "1 person";
     } else {
-      partySizeSnippet = jsonUserPreferenceTestData.partySize + " people";
+      partySizeSnippet = userPreferences.partySize + " people";
     }
 
     //makes time snippet
-    if (jsonUserPreferenceTestData.timeToCook === "") {
+    if (userPreferences.timeToCook === "") {
       timeToCookSnippet = "";
     } else {
-      timeToCookSnippet = jsonUserPreferenceTestData.timeToCook;
+      timeToCookSnippet = userPreferences.timeToCook;
       timeToCookSnippet =
         " that takes around " + timeToCookSnippet + " to make";
     }
 
     //makes special focus snippet
-    if (jsonUserPreferenceTestData.specialFocus.length === 0) {
+    if (userPreferences.specialFocus.length === 0) {
       specialFocusSnippet = "";
     } else {
-      for (let specialFocus of jsonUserPreferenceTestData.specialFocus) {
+      for (let specialFocus of userPreferences.specialFocus) {
         specialFocusSnippet = specialFocusSnippet.concat(
           specialFocus.toLowerCase(),
           ", "
@@ -183,15 +183,21 @@ export const GetRecipes = () => {
         ".";
     }
 
-    jsonUserPreferenceText = `Give me 3 different ${cuisineSnippet} inspired recipes of ${temperaturesSnippet}${typesSnippet} that${tastesSnippet} only use these ingredients: ${ingredientsSnippet}${cookingFatsSnippet}. It does not need to use them all, but cannot use any ingredients that are not here. The recipes need to be for a${mealSizeSnippet} meal for ${partySizeSnippet}${timeToCookSnippet}.${specialFocusSnippet}`;
+    userPreferenceMessage = `Give me 3 different ${cuisineSnippet} inspired recipes of ${temperaturesSnippet}${typesSnippet} that${tastesSnippet} only use these ingredients: ${ingredientsSnippet}${cookingFatsSnippet}. It does not need to use them all, but cannot use any ingredients that are not here. The recipes need to be for a${mealSizeSnippet} meal for ${partySizeSnippet}${timeToCookSnippet}.${specialFocusSnippet}`;
 
-    console.log(jsonUserPreferenceText);
+    console.log(userPreferenceMessage);
   };
 
   let apiKey = import.meta.env.VITE_OPENAI_API_KEY;
   const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
 
   const askGPT = async () => {
+    if (userPreferences.ingredients.length === 0) {
+      //GIVE A WARNING THAT NO INGREDIENTS HAVE BEEN ADDED
+      console.log("cancelled call to gpt due to no ingredients");
+
+      return;
+    }
     const completion = await openai.chat.completions.create({
       messages: [
         {
@@ -201,8 +207,7 @@ export const GetRecipes = () => {
         },
         {
           role: "user",
-          content:
-            "Give me 3 different european or korean inspired recipe that only uses these ingredients: potatoes, tomato sauce, cream, milk, bell peppers, butter, oil, cucumber, corn, quorn, ground beef,spaghetti, rice,sweet potatoes, entrecote, tofu. It does not need to use them all, but cannot use any ingredients that are not here",
+          content: userPreferenceMessage,
         },
         {
           role: "assistant",
@@ -222,5 +227,5 @@ export const GetRecipes = () => {
     createMessage();
   }, [userPreferences]);
 
-  return <button onClick={createMessage}>Ask GPT</button>;
+  return <button onClick={askGPT}>Ask GPT</button>;
 };
