@@ -1,6 +1,7 @@
 import "./home.css";
 import React, { useEffect, useState } from "react";
 
+//Type for all the params ToggleList takes in
 type ToggleListProps = {
   data: Category[];
   setData: React.Dispatch<React.SetStateAction<Category[]>>;
@@ -22,8 +23,10 @@ export const ToggleList: React.FC<ToggleListProps> = ({
   const [nodeList, setNodeList] = useState<React.ReactNode[]>([]);
   const [addToggle, setAddToggle] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
+  //list of all the user-created categories
   let customInputList: string[] = [];
 
+  //Input element for the add button when toggled
   let addInput: React.ReactNode = (
     <input
       onBlur={() => {
@@ -38,12 +41,16 @@ export const ToggleList: React.FC<ToggleListProps> = ({
     />
   );
 
+  //Text for the add button when not toggled
   let addText: React.ReactNode = (
     <p onClick={() => setAddToggle(true)}>Add +</p>
   );
 
+  //creates a toggleable NodeList with list items for each category in categorylist, remakes it when user creates a custom category
   const addData = () => {
+    //resets the list before remaking it
     setNodeList([]);
+    //makes the list
     for (let category of categoryList) {
       let newCategory: React.ReactNode = (
         <li
@@ -54,12 +61,14 @@ export const ToggleList: React.FC<ToggleListProps> = ({
           <p>{category.name}</p>
         </li>
       );
+
       setNodeList((prevState) => {
         return [prevState, newCategory];
       });
     }
   };
 
+  //recreates the categoryList with the updated toggled category
   const handleCategoryToggle = (name: string) => {
     //checks which element was pressed and gets the index
     let index = categoryList.findIndex((category) => category.name == name);
@@ -84,6 +93,7 @@ export const ToggleList: React.FC<ToggleListProps> = ({
     });
   };
 
+  //handles the user input to create a new category
   const handleAddCustomInput = (customInput: string) => {
     if (
       customInput === "" ||
@@ -91,6 +101,7 @@ export const ToggleList: React.FC<ToggleListProps> = ({
         category.name.toLowerCase().includes(input.toLowerCase())
       )
     ) {
+      //untoggles the add button on invalid input
       setAddToggle(false);
       return;
     }
@@ -114,7 +125,7 @@ export const ToggleList: React.FC<ToggleListProps> = ({
     setAddToggle(false);
   };
 
-  //reset the list toggles to false
+  //reset the list toggles to false on button press
   const handleClear = () => {
     setCategoryList((prevState) => {
       let resetData: Category[] = [];

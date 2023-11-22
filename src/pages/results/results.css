@@ -1,0 +1,13 @@
+/* Styling for CARDSLIST*/
+.CardsList .card {
+  margin-bottom: 20px;
+}
+
+.CardsList .card-img-top {
+  height: 160px;
+  border-bottom: 1px solid #80808047;
+}
+
+.CardsList .card-text {
+  font-weight: bold;
+}
