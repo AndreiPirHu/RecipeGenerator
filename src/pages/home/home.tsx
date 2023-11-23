@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CookingFatsList } from "./cookingFats";
 import { CuisinesList } from "./cuisines";
 import { GetRecipes } from "./getRecipes";
@@ -10,8 +11,10 @@ import { TastesList } from "./tastes";
 import { TemperaturesList } from "./temperatures";
 import { TimeList } from "./time";
 import { TypeList } from "./types";
+import { LoadingModal } from "./loadingModal";
 
 export const Home = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   return (
     <div className="Home">
       <main>
@@ -23,6 +26,7 @@ export const Home = () => {
           </h3>
         </section>
         <section id="ingredients-section">
+          <LoadingModal loading={loading} />
           <IngredientsList />
           <CookingFatsList />
           <CuisinesList />
@@ -33,7 +37,7 @@ export const Home = () => {
           <PartySizeList />
           <TimeList />
           <SpecialFocusList />
-          <GetRecipes />
+          <GetRecipes setLoading={setLoading} />
         </section>
       </main>
     </div>

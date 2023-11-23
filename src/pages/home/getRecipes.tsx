@@ -2,13 +2,19 @@ import OpenAI from "openai";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RootState } from "../../features/rootReducer";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { actions } from "../../features/generatedRecipes";
+import { useNavigate } from "react-router-dom";
 
-export const GetRecipes = () => {
+type GetRecipesProps = {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
   let userPreferences = useSelector(
     (state: RootState) => state.userPreferences
   );
+  const navigate = useNavigate();
 
   //template for the AI to know the format i want to receive
   let jsonTemplate = {
@@ -140,9 +146,6 @@ export const GetRecipes = () => {
     console.log(userPreferenceMessage);
   };
 
-  let apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-  const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
-
   const askGPT = async () => {
     if (userPreferences.ingredients.length === 0) {
       //GIVE A WARNING THAT NO INGREDIENTS HAVE BEEN ADDED
@@ -150,9 +153,13 @@ export const GetRecipes = () => {
 
       return;
     }
-
+    /// sets the loading overlay
+    setLoading(true);
     try {
       console.log("Asking gpt");
+
+      let apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+      const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
       const completion = await openai.chat.completions.create({
         messages: [
           {
@@ -185,6 +192,10 @@ export const GetRecipes = () => {
     } catch (error) {
       console.log("Error: " + error);
     }
+    ///removes loading overlay
+    setLoading(false);
+
+    navigate("/results");
   };
 
   useEffect(() => {

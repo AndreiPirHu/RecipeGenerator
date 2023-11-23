@@ -1,0 +1,18 @@
+.RecipeInfo .recipe {
+  display: grid;
+  justify-content: center;
+}
+
+.RecipeInfo .recipe h3 {
+  text-align: center;
+}
+
+.RecipeInfo .ingredients-list {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px 20px;
+  padding-top: 20px;
+}
+
+.RecipeInfo .ingredient-list-item {
+}
