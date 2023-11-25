@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../features/rootReducer";
 import "./recipeInfo.css";
 
@@ -11,6 +11,7 @@ export const RecipeInfo: React.FC = () => {
   const [instructionsNodeList, setInstructionsNodeList] = useState<
     React.ReactNode[]
   >([]);
+  const navigate = useNavigate();
   //gets the recipe title from the url
   const { title } = useParams<{ title: string }>();
 
@@ -64,7 +65,14 @@ export const RecipeInfo: React.FC = () => {
     }
   };
 
+  const navigateRedirect = () => {
+    if (currentRecipe == undefined) {
+      navigate("/");
+    }
+  };
+
   useEffect(() => {
+    navigateRedirect();
     createIngredientNodes();
     createInstructionsNodes();
   }, []);

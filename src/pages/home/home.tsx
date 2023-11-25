@@ -12,6 +12,7 @@ import { TemperaturesList } from "./temperatures";
 import { TimeList } from "./time";
 import { TypeList } from "./types";
 import { LoadingModal } from "./loadingModal";
+import { GetRecipesTEST } from "./getRecipesTEST";
 
 export const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -37,7 +38,8 @@ export const Home = () => {
           <PartySizeList />
           <TimeList />
           <SpecialFocusList />
-          <GetRecipes setLoading={setLoading} />
+          {/*<GetRecipes setLoading={setLoading} />*/}
+          <GetRecipesTEST setLoading={setLoading} />
         </section>
       </main>
     </div>

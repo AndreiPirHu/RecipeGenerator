@@ -6,8 +6,13 @@
 .CardsList .card-img-top {
   height: 160px;
   border-bottom: 1px solid #80808047;
+  object-fit: cover;
 }
 
 .CardsList .card-text {
   font-weight: bold;
+}
+
+.CardsList .placeholder-image {
+  object-fit: contain;
 }

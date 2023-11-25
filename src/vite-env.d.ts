@@ -23,6 +23,8 @@ type Recipe= {
   cuisine: string,
   ingredients: string[],
   instructions: string[]
+  imgURL: string,
+  nutrition: {} | null,
 }
 
 type Recipes ={

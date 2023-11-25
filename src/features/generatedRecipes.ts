@@ -10,19 +10,25 @@ const initialState: Recipes ={
         title: "",
         cuisine: "",
         ingredients: [],
-        instructions: []
+        instructions: [],
+        imgURL: "",
+        nutrition:{},
       },
       {
         title: "",
         cuisine: "",
         ingredients: [],
-        instructions: []
+        instructions: [],
+        imgURL: "",
+        nutrition:{},
       },
       {
         title: "",
         cuisine: "",
         ingredients: [],
-        instructions: []
+        instructions: [],
+        imgURL: "",
+        nutrition:{},
       }
     ]
   }
