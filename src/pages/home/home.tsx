@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { CookingFatsList } from "./cookingFats";
 import { CuisinesList } from "./cuisines";
-import { GetRecipes } from "./getRecipes";
 import "./home.css";
 import { IngredientsList } from "./ingredientsList";
 import { MealSizeList } from "./mealSize";
@@ -12,7 +11,7 @@ import { TemperaturesList } from "./temperatures";
 import { TimeList } from "./time";
 import { TypeList } from "./types";
 import { LoadingModal } from "./loadingModal";
-import { GetRecipesTEST } from "./getRecipesTEST";
+import { GetRecipes } from "./getRecipes";
 
 export const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -38,8 +37,7 @@ export const Home = () => {
           <PartySizeList />
           <TimeList />
           <SpecialFocusList />
-          {/*<GetRecipes setLoading={setLoading} />*/}
-          <GetRecipesTEST setLoading={setLoading} />
+          <GetRecipes setLoading={setLoading} />
         </section>
       </main>
     </div>

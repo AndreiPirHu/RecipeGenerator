@@ -2,12 +2,10 @@ import { useSelector } from "react-redux";
 import { CardsList } from "./cardsList";
 import "./results.css";
 import { RootState } from "../../features/rootReducer";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const Results = () => {
-  //const [imageData, setImageData] = useState<string[]>([]);
   let data: Recipes = useSelector((state: RootState) => state.generatedRecipes);
   const navigate = useNavigate();
 

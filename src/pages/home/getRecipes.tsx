@@ -1,6 +1,5 @@
-import OpenAI from "openai";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-
 import { RootState } from "../../features/rootReducer";
 import React, { useEffect } from "react";
 import { actions } from "../../features/generatedRecipes";
@@ -14,35 +13,9 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
   let userPreferences = useSelector(
     (state: RootState) => state.userPreferences
   );
-  const navigate = useNavigate();
-
-  //template for the AI to know the format i want to receive
-  let jsonTemplate = {
-    title: "Creamy Korean Potato and Quorn Stir-Fry",
-    cuisine: "Korean",
-    ingredients: [
-      "2 large, diced potatoes",
-      "1/2 cup cream",
-      "1 red, sliced bell pepper",
-      "2 tbsp butter",
-      "2 tbsp oil",
-      "1 medium, thinly sliced cucumber",
-      "1 cup, diced quorn",
-      "2 cups, cooked rice",
-      "1 medium, diced sweet potato",
-    ],
-    instructions: [
-      "In a large skillet, heat the oil and butter over medium heat.",
-      "Add the diced potatoes and sweet potatoes to the skillet and cook until golden brown, about 10 minutes.",
-      "Add the bell peppers and quorn to the skillet and sauté for another 5 minutes.",
-      "Pour in the cream and stir to combine, then reduce heat to low and let simmer for 5 minutes.",
-      "Serve the creamy potato and quorn stir-fry over the cooked rice and garnish with sliced cucumber.",
-    ],
-  };
 
   const dispatch = useDispatch();
-
-  //string that is sent to AI
+  const navigate = useNavigate();
   let userPreferenceMessage: string = "";
 
   const createMessage = () => {
@@ -146,62 +119,117 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
     console.log(userPreferenceMessage);
   };
 
-  const askGPT = async () => {
+  const getRecipes = async () => {
     if (userPreferences.ingredients.length === 0) {
       //GIVE A WARNING THAT NO INGREDIENTS HAVE BEEN ADDED
       console.log("cancelled call to gpt due to no ingredients");
-
       return;
     }
-    /// sets the loading overlay
-    setLoading(true);
+
     try {
-      console.log("Asking gpt");
+      /// sets the loading overlay
+      setLoading(true);
 
-      let apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-      const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
-      const completion = await openai.chat.completions.create({
-        messages: [
-          {
-            role: "system",
-            content:
-              "You are recipe generator that generates a JSON with 3 recipes based on the ingredients that the user gives you. The recipes can only include these ingredients and nothing else and you must follow preferences like the preferred cuisine.",
-          },
-          {
-            role: "user",
-            content: userPreferenceMessage,
-          },
-          {
-            role: "assistant",
-            content: `Make each recipe follow the same structure as this ${JSON.stringify(
-              jsonTemplate
-            )}`,
-          },
-        ],
-        model: "gpt-3.5-turbo-1106",
-        response_format: { type: "json_object" },
+      ////////////// Get GPT Recipes//////////////////////
+      console.log("Asking server to ask gpt");
+
+      const url = "http://localhost:3000/generateRecipes/";
+
+      const GPTBody = { message: userPreferenceMessage };
+
+      const GPTResponse = await axios.post(url, GPTBody);
+
+      let recipes = JSON.parse(GPTResponse.data.recipes);
+      console.log(recipes);
+
+      //give each object a imgurl and nutrition key
+      recipes = recipes.recipes.map((obj: object) => ({
+        ...obj,
+        imgURL: "",
+        nutrition: {},
+      }));
+      console.log(recipes);
+
+      //////// Get images ///////////////////
+      console.log("Asking server to get google images");
+
+      const imgUrl = "http://localhost:3000/generateImages";
+      const imgBody = { recipes: recipes };
+
+      const imgResponse = await axios.post(imgUrl, imgBody);
+      //images get added to correct recipe in server
+      //makes it into the correct object type
+      let finishedRecipes: Recipes = { recipes: imgResponse.data.recipes };
+      console.log(finishedRecipes);
+
+      //array of title and ingredients for edamam api
+      let recipeIngredients = [];
+      for (let recipe of finishedRecipes.recipes) {
+        let newRecipeIngredients = {
+          title: recipe.title,
+          ingr: recipe.ingredients,
+        };
+        recipeIngredients.push(newRecipeIngredients);
+      }
+      console.log(recipeIngredients);
+      //////// Get nutritional values ///////////////////
+      console.log("Asking server to get edamam nutritional values");
+
+      const edamamUrl = "http://localhost:3000/generateNutrition";
+      const edamamBody = { recipes: recipeIngredients };
+
+      const edamamResponse = await axios.post(edamamUrl, edamamBody);
+
+      console.log(edamamResponse);
+
+      //////////create final updated recipes//////////////////
+      //giving each recipe their img url
+      finishedRecipes.recipes.forEach((recipe, index) => {
+        recipe.nutrition = edamamResponse.data.nutrition[index];
       });
-      console.log(completion.choices[0].message.content);
-
+      console.log(finishedRecipes);
       //sends the AI response to redux
-      dispatch(
-        actions.addRecipes(
-          JSON.parse(completion.choices[0].message.content as string)
-        )
-      );
+      dispatch(actions.addRecipes(finishedRecipes));
+      //add the new recipes to localstorage
+      addToLocalStorage(finishedRecipes);
+      ///removes loading overlay
+      setLoading(false);
+      //navigate to results
+      navigate("/results");
     } catch (error) {
-      console.log("Error: " + error);
+      console.log(error);
     }
-    ///removes loading overlay
-    setLoading(false);
+  };
 
-    navigate("/results");
+  const addToLocalStorage = (newRecipes: Recipes) => {
+    //gets previous history
+    let storedRecipesHistory = localStorage.getItem("recipeHistory");
+
+    // if it is null, sets it to an object with empty recipes array
+    let previousRecipesHistory: Recipes = storedRecipesHistory
+      ? JSON.parse(storedRecipesHistory)
+      : { recipes: [] };
+
+    console.log(previousRecipesHistory);
+
+    //merges the old array of recipes with the new ones generated
+    const updatedRecipesHistory = {
+      recipes: previousRecipesHistory.recipes.concat(newRecipes.recipes),
+    };
+
+    localStorage.setItem(
+      "recipeHistory",
+      JSON.stringify(updatedRecipesHistory)
+    );
   };
 
   useEffect(() => {
-    //recreates the message to AI whenever values in redux change
     createMessage();
   }, [userPreferences]);
 
-  return <button onClick={askGPT}>Ask GPT</button>;
+  return (
+    <div>
+      <button onClick={getRecipes}>Send request</button>
+    </div>
+  );
 };

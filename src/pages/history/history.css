@@ -1,0 +1,37 @@
+.History h1 {
+  margin-bottom: 30px;
+}
+
+.History ul {
+  padding: 0;
+  margin: 0;
+  height: 500px;
+  overflow: auto;
+}
+
+.History #recipe-search {
+  margin-left: 5px;
+}
+
+.History .history-list-item {
+  list-style: none;
+  display: flex;
+  height: 80px;
+  border-bottom: 1px solid rgba(174, 174, 174, 0.684);
+  padding-bottom: 5px;
+  margin: 5px;
+}
+
+.History .history-list-item h4 {
+  display: flex;
+  align-items: center;
+}
+.History .history-list-item .image-container {
+  margin-right: 10px;
+}
+
+.History .history-list-item .list-item-image {
+  object-fit: cover;
+  width: 70px;
+  height: 70px;
+}
