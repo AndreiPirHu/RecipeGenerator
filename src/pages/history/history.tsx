@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./history.css";
+import { useNavigate } from "react-router-dom";
 export const History = () => {
   const recipeHistoryJSON = localStorage.getItem("recipeHistory");
   const [filterInput, setFilterInput] = useState<string>("");
@@ -7,6 +8,7 @@ export const History = () => {
   const recipeHistory =
     recipeHistoryJSON == null ? null : JSON.parse(recipeHistoryJSON);
 
+  const navigate = useNavigate();
   const createNodeList = () => {
     if (recipeHistory == null) {
       return;
@@ -24,7 +26,11 @@ export const History = () => {
         (filterInput !== null && filterValues.includes(filterInput))
       ) {
         const newListNode = (
-          <li key={recipe.title} className="history-list-item">
+          <li
+            key={recipe.title}
+            className="history-list-item"
+            onClick={() => navigateToRecipeInfo(recipe.title)}
+          >
             <div className="image-container">
               <img
                 className="list-item-image"
@@ -49,6 +55,12 @@ export const History = () => {
     const imgElement = event.currentTarget;
     imgElement.src = "/src/assets/Card-placeholder.svg";
     imgElement.classList.add("placeholder-image");
+  };
+
+  //navigates to recipe and sends the correct recipe title in the url
+  const navigateToRecipeInfo = (title: string) => {
+    const destination: string = `/recipe/${title}`;
+    navigate(destination);
   };
 
   useEffect(() => {

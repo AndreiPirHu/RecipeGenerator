@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { RootState } from "../../features/rootReducer";
 import "./recipeInfo.css";
+import { current } from "immer";
 
 export const RecipeInfo: React.FC = () => {
   const [ingredientNodeList, setIngredientNodeList] = useState<
@@ -11,19 +12,42 @@ export const RecipeInfo: React.FC = () => {
   const [instructionsNodeList, setInstructionsNodeList] = useState<
     React.ReactNode[]
   >([]);
-  const navigate = useNavigate();
+  const [currentRecipe, setCurrentRecipe] = useState<Recipe | undefined>(
+    undefined
+  );
   //gets the recipe title from the url
   const { title } = useParams<{ title: string }>();
 
   //gets all recipes from redux
-  const recipes: Recipes = useSelector(
+  const reduxRecipes: Recipes = useSelector(
     (state: RootState) => state.generatedRecipes
   );
 
-  //gets the correct recipe from the array that matches the url title
-  const currentRecipe: Recipe | undefined = recipes.recipes.find(
-    (recipe) => recipe.title === title
-  );
+  const getCurrentRecipe = () => {
+    //check if redux has the correct recipe
+    setCurrentRecipe(
+      reduxRecipes.recipes.find((recipe) => recipe.title === title)
+    );
+    //if no recipe was found in redux, looks for it in history
+    if (currentRecipe === undefined) {
+      //gets all recipes from history if any
+      const historyRecipesJSON: string | null =
+        localStorage.getItem("recipeHistory");
+
+      let historyRecipes: Recipes;
+
+      if (historyRecipesJSON !== null) {
+        historyRecipes = JSON.parse(historyRecipesJSON);
+        setCurrentRecipe(
+          historyRecipes.recipes.find((recipe) => recipe.title == title)
+        );
+      }
+    }
+    //if no recipe is found in either, currentrecipes is undefined and error message is displayed
+    if (currentRecipe == undefined) {
+      return;
+    }
+  };
 
   //create ingredient node list
   const createIngredientNodes = () => {
@@ -65,22 +89,35 @@ export const RecipeInfo: React.FC = () => {
     }
   };
 
-  const navigateRedirect = () => {
-    if (currentRecipe == undefined) {
-      navigate("/");
-    }
+  const handleBrokenImage = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    //if image is broken it gets replaced by placeholder and gets an extra class added for better placeholder styling
+    const imgElement = event.currentTarget;
+    imgElement.src = "/src/assets/Card-placeholder.svg";
+    imgElement.classList.add("placeholder-image");
   };
 
   useEffect(() => {
-    navigateRedirect();
     createIngredientNodes();
     createInstructionsNodes();
+  }, [currentRecipe]);
+
+  useEffect(() => {
+    getCurrentRecipe();
   }, []);
 
   return (
     <div className="RecipeInfo">
       {currentRecipe !== undefined ? (
         <div className="recipe">
+          <div className="image-container">
+            <img
+              src={currentRecipe.imgURL}
+              alt={currentRecipe.title}
+              onError={handleBrokenImage}
+            />
+          </div>
           <h1>{currentRecipe.title}</h1>
           <h3>Ingredients</h3>
           <ul className="ingredients-list">{ingredientNodeList}</ul>
