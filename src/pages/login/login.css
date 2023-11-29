@@ -1,0 +1,10 @@
+.Login {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+.Login .login-container {
+  display: grid;
+  width: 300px;
+}

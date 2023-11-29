@@ -3,7 +3,8 @@ import { Home } from "./pages/home/home";
 import { Results } from "./pages/results/results";
 import { RecipeInfo } from "./pages/recipeInfo/recipeInfo";
 import { History } from "./pages/history/history";
-import { NavigationBar } from "./components/NavigationBar";
+import { NavigationBar } from "./components/navigationBar";
+import { Login } from "./pages/login/login";
 function App() {
   return (
     <>
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/recipe/:title" element={<RecipeInfo />} />
           <Route path="/history" element={<History />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Router>
     </>
