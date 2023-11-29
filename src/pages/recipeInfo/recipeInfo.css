@@ -11,15 +11,17 @@
 .RecipeInfo .recipe h3 {
   text-align: center;
 }
-
-.RecipeInfo .ingredients-list {
+.RecipeInfo .ingredients-container {
   border: 2px solid black;
   border-radius: 10px;
   margin: 10px 20px;
-  padding-top: 20px;
+}
+.RecipeInfo .ingredients-container h3 {
+  font-size: 1.5rem;
+  margin: 10px 0;
 }
 
-.RecipeInfo .image-container {
+.RecipeInfo .ingredients-list {
 }
 
 .RecipeInfo .image-container img {
@@ -30,4 +32,79 @@
 
 .RecipeInfo .image-container .placeholder-image {
   object-fit: fill;
+}
+
+/* //////////  NutritionInfo CSS   //////////////  */
+.NutritionInfo .nutrition-container {
+  width: 320px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+
+.NutritionInfo .nutrition-container #title {
+  text-align: center;
+  font-size: 2rem;
+  border-bottom: 3px solid black;
+  padding-bottom: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.NutritionInfo .primary-nutrient {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  margin-bottom: 1rem;
+}
+
+.NutritionInfo .description {
+  display: flex;
+  justify-content: space-between;
+}
+
+.NutritionInfo .description p {
+  margin-bottom: 0.3rem;
+  font-size: 0.7rem;
+}
+
+.NutritionInfo .secondary-nutrient {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(174, 172, 172, 0.516);
+  padding-top: 5px;
+}
+.NutritionInfo .nutrient-amount {
+  display: flex;
+}
+
+.NutritionInfo .secondary-nutrient .title {
+  font-weight: bold;
+}
+
+.NutritionInfo .secondary-nutrient .amount {
+  margin-left: 3px;
+}
+
+.NutritionInfo .secondary-nutrient .percent {
+  font-weight: bold;
+}
+
+.NutritionInfo .tertiary-nutrient {
+  display: flex;
+  justify-content: space-between;
+
+  border-top: 1px solid rgba(174, 172, 172, 0.516);
+  padding-top: 5px;
+}
+
+.NutritionInfo .tertiary-nutrient .title {
+  margin-left: 20px;
+}
+
+.NutritionInfo .tertiary-nutrient .amount {
+  margin-left: 3px;
+}
+.NutritionInfo .tertiary-nutrient .percent {
+  font-weight: bold;
 }

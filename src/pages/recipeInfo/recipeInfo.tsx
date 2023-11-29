@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../features/rootReducer";
 import "./recipeInfo.css";
-import { current } from "immer";
+import { NutritionInfo } from "./nutritionInfo";
 
 export const RecipeInfo: React.FC = () => {
   const [ingredientNodeList, setIngredientNodeList] = useState<
@@ -119,10 +119,18 @@ export const RecipeInfo: React.FC = () => {
             />
           </div>
           <h1>{currentRecipe.title}</h1>
-          <h3>Ingredients</h3>
-          <ul className="ingredients-list">{ingredientNodeList}</ul>
+          <div className="ingredients-container">
+            <h3>Ingredients</h3>
+            <ul className="ingredients-list">{ingredientNodeList}</ul>
+          </div>
+
           <h3>Instructions</h3>
           <ol className="instructions-list">{instructionsNodeList}</ol>
+          {currentRecipe.nutrition ? (
+            <NutritionInfo nutrition={currentRecipe.nutrition} />
+          ) : (
+            ""
+          )}
         </div>
       ) : (
         <div className="warning">
