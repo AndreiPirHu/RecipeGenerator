@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { RootState } from "../../features/rootReducer";
 import "./recipeInfo.css";
 import { NutritionInfo } from "./nutritionInfo";
+import { getFirestoreRecipes } from "../../components/getFirestoreRecipes";
 
 export const RecipeInfo: React.FC = () => {
   const [ingredientNodeList, setIngredientNodeList] = useState<
@@ -15,6 +16,7 @@ export const RecipeInfo: React.FC = () => {
   const [currentRecipe, setCurrentRecipe] = useState<Recipe | undefined>(
     undefined
   );
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
   //gets the recipe title from the url
   const { title } = useParams<{ title: string }>();
 
@@ -23,30 +25,35 @@ export const RecipeInfo: React.FC = () => {
     (state: RootState) => state.generatedRecipes
   );
 
-  const getCurrentRecipe = () => {
-    //check if redux has the correct recipe
+  const getCurrentRecipe = async () => {
+    //check if redux has the correct recipe (newly generated)
     setCurrentRecipe(
       reduxRecipes.recipes.find((recipe) => recipe.title === title)
     );
-    //if no recipe was found in redux, looks for it in history
-    if (currentRecipe === undefined) {
-      //gets all recipes from history if any
-      const historyRecipesJSON: string | null =
-        localStorage.getItem("recipeHistory");
 
-      let historyRecipes: Recipes;
+    //if no recipe was found in redux, looks for it in history or firebase depending on online status
+    if (isLoggedIn) {
+      let firebaseRecipes: Recipe[] = await getFirestoreRecipes();
 
-      if (historyRecipesJSON !== null) {
-        historyRecipes = JSON.parse(historyRecipesJSON);
-        setCurrentRecipe(
-          historyRecipes.recipes.find((recipe) => recipe.title == title)
-        );
+      setCurrentRecipe(firebaseRecipes.find((recipe) => recipe.title == title));
+    } else {
+      if (currentRecipe === undefined) {
+        //gets all recipes from history if any
+        const historyRecipesJSON: string | null =
+          localStorage.getItem("recipeHistory");
+
+        let historyRecipes: Recipes;
+
+        if (historyRecipesJSON !== null) {
+          historyRecipes = JSON.parse(historyRecipesJSON);
+          setCurrentRecipe(
+            historyRecipes.recipes.find((recipe) => recipe.title == title)
+          );
+        }
       }
     }
+
     //if no recipe is found in either, currentrecipes is undefined and error message is displayed
-    if (currentRecipe == undefined) {
-      return;
-    }
   };
 
   //create ingredient node list
@@ -105,7 +112,7 @@ export const RecipeInfo: React.FC = () => {
 
   useEffect(() => {
     getCurrentRecipe();
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div className="RecipeInfo">

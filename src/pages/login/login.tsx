@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./login.css";
-import { auth, signInWithEmailAndPassword } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../features/rootReducer";
@@ -12,19 +11,8 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleLogIn = async () => {
-    try {
-      const { user } = await signInWithEmailAndPassword(
-        auth,
-        emailInput,
-        passwordInput
-      );
-      //save the recipes in localstorage to user in firestore
-      //remove all items from localstorage
-      console.log(`${user.email} logged in successfully`);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleNavigateToRegister = () => {
+    navigate("/register");
   };
 
   const handleRedirect = () => {
@@ -43,7 +31,7 @@ export const Login = () => {
         <h1 className="title">Sign in</h1>
         <input
           className="email-input input-field"
-          type="text"
+          type="email"
           placeholder="Email"
           onChange={(e) => setEmailInput(e.target.value)}
           required
@@ -55,11 +43,14 @@ export const Login = () => {
           onChange={(e) => setPasswordInput(e.target.value)}
           required
         />
-        <button className="button" onClick={() => handleLogIn()}>
-          Log in
+
+        <LoginAuth email={emailInput} password={passwordInput} />
+        <button
+          className="button secondary-btn"
+          onClick={handleNavigateToRegister}
+        >
+          Register
         </button>
-        <LoginAuth />
-        <button className="button">Register</button>
       </form>
     </div>
   );

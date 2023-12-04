@@ -1,10 +1,10 @@
-.Login {
+.Register {
   display: grid;
   justify-content: center;
   align-items: center;
   height: 80vh;
 }
-.Login .login-container {
+.Register .login-container {
   display: grid;
   border-radius: 10px;
   padding: 30px;
@@ -13,12 +13,12 @@
   max-width: 400px;
 }
 
-.Login .title {
+.Register .title {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.Login .input-field {
+.Register .input-field {
   height: 40px;
   margin-bottom: 20px;
   border: none;
@@ -26,7 +26,7 @@
   font-size: 1.1rem;
 }
 
-.Login .button {
+.Register .button {
   height: 40px;
   margin-top: 20px;
   border: none;
@@ -34,13 +34,22 @@
   color: white;
 }
 
-.Login .button:hover {
+.Register .button:hover {
   background-color: blue;
 }
 
-.Login .primary-btn {
+.Register .primary-btn {
   background-color: green;
 }
-.Login .secondary-btn {
+.Register .secondary-btn {
   background-color: black;
+}
+
+.Register .link {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.Register .link-text {
+  margin-top: 1rem;
 }

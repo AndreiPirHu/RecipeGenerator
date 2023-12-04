@@ -4,6 +4,8 @@ import { RootState } from "../../features/rootReducer";
 import React, { useEffect } from "react";
 import { actions } from "../../features/generatedRecipes";
 import { useNavigate } from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../../firebase";
 
 type GetRecipesProps = {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,6 +15,7 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
   let userPreferences = useSelector(
     (state: RootState) => state.userPreferences
   );
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -188,10 +191,31 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
         recipe.nutrition = edamamResponse.data.nutrition[index];
       });
       console.log(finishedRecipes);
-      //sends the AI response to redux
+      //sends the AI response to redux for results page
       dispatch(actions.addRecipes(finishedRecipes));
-      //add the new recipes to localstorage
-      addToLocalStorage(finishedRecipes);
+      //check if online or not to send to right database storage
+      if (isLoggedIn) {
+        //sends to firestore if online
+        const userID = auth.currentUser!.uid;
+        for (let recipe of finishedRecipes.recipes) {
+          try {
+            const collectionRef = collection(
+              db,
+              "users",
+              userID,
+              "recipeHistory"
+            );
+
+            await addDoc(collectionRef, recipe);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      } else {
+        //add the new recipes to localstorage if offline
+        addToLocalStorage(finishedRecipes);
+      }
+
       ///removes loading overlay
       setLoading(false);
       //navigate to results

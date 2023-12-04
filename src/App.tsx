@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { actions } from "./features/user";
+import { Register } from "./pages/register/register";
 function App() {
   const dispatch = useDispatch();
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/history" element={<History />} />
           <Route path="/login" element={<Login />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
     </>

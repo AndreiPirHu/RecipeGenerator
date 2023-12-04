@@ -1,6 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyAVP-tI4TNJeH8WGcfmxgLvOzBiYGWbqeA",
   authDomain: "recipe-generator-1700605059556.firebaseapp.com",
@@ -16,4 +20,12 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const auth = getAuth();
-export { db, auth, signInWithEmailAndPassword };
+export {
+  db,
+  auth,
+  signInWithEmailAndPassword,
+  collection,
+  addDoc,
+  getDocs,
+  createUserWithEmailAndPassword,
+};

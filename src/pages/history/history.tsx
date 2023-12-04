@@ -3,6 +3,7 @@ import "./history.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../features/rootReducer";
+import { getFirestoreRecipes } from "../../components/getFirestoreRecipes";
 export const History = () => {
   const recipeHistoryJSON = localStorage.getItem("recipeHistory");
   const [filterInput, setFilterInput] = useState<string>("");
@@ -13,13 +14,15 @@ export const History = () => {
 
   const navigate = useNavigate();
 
-  const createNodeList = () => {
+  const createNodeList = async () => {
     let recipes: Recipes | null = null;
 
     setRecipeNodeList([]);
     if (isLoggedIn) {
       //checks if user is logged in to get recipes from firebase instead
+      recipes = { recipes: await getFirestoreRecipes() };
     } else {
+      //if online, gets the recipes from localstorage if any
       recipes = recipeHistory;
     }
 
