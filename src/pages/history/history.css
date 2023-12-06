@@ -1,5 +1,5 @@
 .History h1 {
-  margin-bottom: 30px;
+  margin: 40px 0;
 }
 
 .History ul {
@@ -11,6 +11,9 @@
 
 .History #recipe-search {
   margin-left: 5px;
+  font-size: 1.3rem;
+  width: 400px;
+  margin-bottom: 20px;
 }
 
 .History .history-list-item {
@@ -18,8 +21,11 @@
   display: flex;
   height: 80px;
   border-bottom: 1px solid rgba(174, 174, 174, 0.684);
-  padding-bottom: 5px;
-  margin: 5px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+.History .history-list-item:hover {
+  background-color: #38803e;
 }
 
 .History .history-list-item h4 {
@@ -34,4 +40,10 @@
   object-fit: cover;
   width: 70px;
   height: 70px;
+}
+
+@media (min-width: 600px) {
+  .History {
+    margin: 0 10%;
+  }
 }

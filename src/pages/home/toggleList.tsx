@@ -154,7 +154,9 @@ export const ToggleList: React.FC<ToggleListProps> = ({
       <div id="list-container">
         <div className="title-container">
           <h3>{title}</h3>
-          <button onClick={handleClear}>Clear</button>
+          <button className="clear-btn" onClick={handleClear}>
+            Clear
+          </button>
         </div>
 
         <ul id="list">

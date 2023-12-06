@@ -95,6 +95,7 @@ export const History = () => {
           onChange={(e) => setFilterInput(e.target.value)}
           id="recipe-search"
           type="text"
+          placeholder="Search by name/ingredient"
         />
         <ul>{recipeNodeList}</ul>
       </main>

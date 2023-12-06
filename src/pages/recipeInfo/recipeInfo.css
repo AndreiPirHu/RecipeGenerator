@@ -21,9 +21,6 @@
   margin: 10px 0;
 }
 
-.RecipeInfo .ingredients-list {
-}
-
 .RecipeInfo .image-container img {
   object-fit: cover;
   width: 100vw;
@@ -32,6 +29,10 @@
 
 .RecipeInfo .image-container .placeholder-image {
   object-fit: fill;
+}
+
+.RecipeInfo .instructions-list {
+  margin-top: 50px;
 }
 
 /* //////////  NutritionInfo CSS   //////////////  */
@@ -107,4 +108,79 @@
 }
 .NutritionInfo .tertiary-nutrient .percent {
   font-weight: bold;
+}
+
+@media (min-width: 700px) {
+  .RecipeInfo .recipe {
+    display: grid;
+    grid-template-areas:
+      "image image"
+      "title title"
+      "ingredients nutrition"
+      "instructions nutrition";
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+  }
+
+  .RecipeInfo .recipe-noNutrition {
+    display: grid;
+    grid-template-areas:
+      "image "
+      "title "
+      "ingredients "
+      "instructions ";
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+  }
+
+  .RecipeInfo .image-container {
+    grid-area: image;
+  }
+  .RecipeInfo h1 {
+    grid-area: title;
+  }
+  .RecipeInfo .ingredients-container {
+    grid-area: ingredients;
+    max-width: 500px;
+  }
+
+  .RecipeInfo .instructions-list {
+    grid-area: instructions;
+    max-width: 500px;
+    margin-right: 30px;
+  }
+  .RecipeInfo .NutritionInfo {
+    grid-area: nutrition;
+    margin-right: 30px;
+  }
+  .RecipeInfo .NutritionInfo .nutrition-container {
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 900px) {
+  .RecipeInfo .ingredients-container {
+    margin-left: 10%;
+  }
+
+  .RecipeInfo .instructions-list {
+    margin-left: 10%;
+  }
+
+  .RecipeInfo .recipe-noNutrition .ingredients-container {
+    margin-left: 32.5%;
+  }
+  .RecipeInfo .recipe-noNutrition .instructions-list {
+    margin-left: 32.5%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .RecipeInfo .ingredients-container {
+    margin-left: 20%;
+  }
+
+  .RecipeInfo .instructions-list {
+    margin-left: 20%;
+  }
 }

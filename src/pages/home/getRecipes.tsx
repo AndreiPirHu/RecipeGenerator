@@ -252,8 +252,10 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
   }, [userPreferences]);
 
   return (
-    <div>
-      <button onClick={getRecipes}>Send request</button>
+    <div className="button-container">
+      <button className="generate-btn" onClick={getRecipes}>
+        Generate Recipes
+      </button>
     </div>
   );
 };

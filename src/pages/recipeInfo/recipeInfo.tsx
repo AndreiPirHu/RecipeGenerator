@@ -117,7 +117,11 @@ export const RecipeInfo: React.FC = () => {
   return (
     <div className="RecipeInfo">
       {currentRecipe !== undefined ? (
-        <div className="recipe">
+        <div
+          className={
+            currentRecipe.nutrition ? "recipe" : "recipe recipe-noNutrition"
+          }
+        >
           <div className="image-container">
             <img
               src={currentRecipe.imgURL}
@@ -131,8 +135,10 @@ export const RecipeInfo: React.FC = () => {
             <ul className="ingredients-list">{ingredientNodeList}</ul>
           </div>
 
-          <h3>Instructions</h3>
-          <ol className="instructions-list">{instructionsNodeList}</ol>
+          <ol className="instructions-list">
+            <h3>Instructions</h3>
+            {instructionsNodeList}
+          </ol>
           {currentRecipe.nutrition ? (
             <NutritionInfo nutrition={currentRecipe.nutrition} />
           ) : (

@@ -72,6 +72,7 @@ export const IngredientsList = () => {
       <div id="input-container">
         <input
           value={input}
+          placeholder="Add Ingredient"
           onChange={(e) => {
             setInput(e.target.value);
           }}
@@ -83,7 +84,7 @@ export const IngredientsList = () => {
           Add
         </button>
       </div>
-
+      <h3>Ingredients</h3>
       <ul id="list">{list}</ul>
     </div>
   );

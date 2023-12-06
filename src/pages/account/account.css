@@ -1,0 +1,27 @@
+.Account {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+}
+
+.Account .container {
+  display: grid;
+}
+
+.Account .container input {
+  margin-bottom: 2rem;
+}
+
+.Account .container button {
+  background-color: red;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+.Account h1 {
+  text-align: center;
+  margin-bottom: 50px;
+}

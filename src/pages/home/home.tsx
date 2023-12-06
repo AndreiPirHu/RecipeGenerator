@@ -19,11 +19,11 @@ export const Home = () => {
     <div className="Home">
       <main>
         <section id="hero-section">
-          <h1>Find Recipes with Your Ingredients</h1>
-          <h3>
-            Get personalized recipe recommendations based on items in your
-            fridge
-          </h3>
+          <div className="img-container">
+            <img src="/src/assets/Hero-image.svg" alt="Cookbook" />
+          </div>
+
+          <h1>Get personalized recipes based on items in your fridge</h1>
         </section>
         <section id="ingredients-section">
           <LoadingModal loading={loading} />

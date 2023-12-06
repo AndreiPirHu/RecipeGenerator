@@ -1,6 +1,10 @@
 /* Styling for CARDSLIST*/
 .CardsList .card {
   margin-bottom: 20px;
+  cursor: pointer;
+}
+.CardsList .card:hover {
+  background-color: #38803e;
 }
 
 .CardsList .card-img-top {
@@ -15,4 +19,13 @@
 
 .CardsList .placeholder-image {
   object-fit: contain;
+}
+
+@media (min-width: 600px) {
+  .CardsList {
+    margin: 40px 10%;
+  }
+  .CardsList .card {
+    margin: 20px 20px;
+  }
 }
