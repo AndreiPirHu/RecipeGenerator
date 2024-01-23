@@ -136,7 +136,8 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
       ////////////// Get GPT Recipes//////////////////////
       console.log("Asking server to ask gpt");
 
-      const url = "http://localhost:3000/generateRecipes/";
+      const url =
+        "https://recipe-generator-backend.onrender.com/generateRecipes/";
 
       const GPTBody = { message: userPreferenceMessage };
 
@@ -156,7 +157,8 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
       //////// Get images ///////////////////
       console.log("Asking server to get google images");
 
-      const imgUrl = "http://localhost:3000/generateImages";
+      const imgUrl =
+        "https://recipe-generator-backend.onrender.com/generateImages";
       const imgBody = { recipes: recipes };
 
       const imgResponse = await axios.post(imgUrl, imgBody);
@@ -178,7 +180,8 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
       //////// Get nutritional values ///////////////////
       console.log("Asking server to get edamam nutritional values");
 
-      const edamamUrl = "http://localhost:3000/generateNutrition";
+      const edamamUrl =
+        "https://recipe-generator-backend.onrender.com/generateNutrition";
       const edamamBody = { recipes: recipeIngredients };
 
       const edamamResponse = await axios.post(edamamUrl, edamamBody);

@@ -12,7 +12,7 @@
 .History #recipe-search {
   margin-left: 5px;
   font-size: 1.3rem;
-  width: 400px;
+  width: 300px;
   margin-bottom: 20px;
 }
 
@@ -45,5 +45,8 @@
 @media (min-width: 600px) {
   .History {
     margin: 0 10%;
+  }
+  .History #recipe-search {
+    width: 500px;
   }
 }

@@ -59,6 +59,11 @@ body {
   padding: 0 20px;
   margin-left: 2px;
 }
+
+#IngredientsList #input-button:hover {
+  background-color: #2fad3a;
+}
+
 /*#IngredientsList*/
 #list {
   padding: 0;
@@ -94,6 +99,9 @@ body {
   margin-top: 2px;
   cursor: pointer;
 }
+#IngredientsList .delete-item:hover {
+  color: #02020299;
+}
 
 /*CSS FOR TOGGLELIST*/
 
@@ -105,6 +113,10 @@ body {
   cursor: pointer;
 }
 
+#ToggleList .list-item:hover {
+  background-color: #2fad3a;
+}
+
 #ToggleList .toggled {
   background-color: green;
 }
@@ -114,6 +126,10 @@ body {
   color: white;
   cursor: pointer;
   border: none;
+}
+
+#ToggleList .add-button:hover {
+  background-color: #2fad3a;
 }
 
 #ToggleList .add-button input {
@@ -131,6 +147,10 @@ body {
   border: 1px solid black;
   border-radius: 3px;
   margin-left: 10px;
+}
+
+#ToggleList .title-container .clear-btn:hover {
+  background-color: rgb(65, 64, 64);
 }
 
 /*LOADING MODAL CSS*/
@@ -177,6 +197,10 @@ body {
   color: white;
   border: none;
   font-size: 1.5rem;
-  border-radius: 20px;
+  border-radius: 5px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+}
+
+.generate-btn:hover {
+  background-color: #2fad3a;
 }

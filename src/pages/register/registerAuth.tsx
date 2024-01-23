@@ -36,7 +36,7 @@ export const RegisterAuth: React.FC<RegisterAuthProps> = ({
   return (
     <>
       <button
-        className="button secondary-btn"
+        className="button primary-btn"
         onClick={(e) => handleCreateAccount(e)}
       >
         Create Account
