@@ -1,7 +1,7 @@
 {
   "name": "recipegenerator",
   "private": true,
-  "homepage": "https://andreipirhu.github.io/recipeGenerator",
+  "homepage": "https://andreipirhu.github.io/RecipeGenerator",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
