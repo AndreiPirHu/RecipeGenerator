@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { addDoc, auth, collection, db } from "../../firebase";
+import { auth } from "../../firebase";
 import React from "react";
 import { syncCarts } from "../../components/syncCarts";
 

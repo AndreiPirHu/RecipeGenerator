@@ -11,9 +11,9 @@ const initialState = {
 };
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(isUserLoggedIn, (state, action) => ({
-    isLoggedIn: action.payload,
-  }));
+  builder.addCase(isUserLoggedIn, (state, action) => {
+    return { ...state, isLoggedIn: action.payload };
+  });
 });
 
 export { reducer, actions };
