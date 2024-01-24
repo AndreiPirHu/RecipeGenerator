@@ -121,9 +121,9 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
   };
 
   const getRecipes = async () => {
-    if (userPreferences.ingredients.length === 0) {
-      //GIVE A WARNING THAT NO INGREDIENTS HAVE BEEN ADDED
+    if (userPreferences.ingredients.length < 3) {
       console.log("cancelled call to gpt due to no ingredients");
+      alert("Atleast 3 ingredients are needed to generate recipes.");
       return;
     }
 
