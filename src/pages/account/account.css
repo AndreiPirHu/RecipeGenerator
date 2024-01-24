@@ -21,6 +21,10 @@
   font-weight: bold;
 }
 
+.Account .container button:hover {
+  background-color: rgb(174, 29, 29);
+}
+
 .Account h1 {
   text-align: center;
   margin-bottom: 50px;

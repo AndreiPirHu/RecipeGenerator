@@ -118,8 +118,6 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
     }
 
     userPreferenceMessage = `Give me 3 different ${cuisineSnippet} inspired recipes of ${temperaturesSnippet} ${typesSnippet} that${tastesSnippet} only use these ingredients: ${ingredientsSnippet}${cookingFatsSnippet}. It does not need to use them all, but cannot use any ingredients that are not here. The recipes need to be for a${mealSizeSnippet} meal for ${partySizeSnippet}${timeToCookSnippet}.${specialFocusSnippet}`;
-
-    console.log(userPreferenceMessage);
   };
 
   const getRecipes = async () => {
