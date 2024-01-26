@@ -6,6 +6,8 @@
 .RecipeInfo h1 {
   text-align: center;
   margin-bottom: 30px;
+  font-family: "Paytone One";
+  margin-top: 15px;
 }
 
 .RecipeInfo .recipe h3 {
