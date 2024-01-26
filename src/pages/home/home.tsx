@@ -20,7 +20,10 @@ export const Home = () => {
       <main>
         <section id="hero-section">
           <div className="img-container">
-            <img src="/src/assets/Hero-image.svg" alt="Cookbook" />
+            <img
+              src="https://raw.githubusercontent.com/AndreiPirHu/RecipeGenerator/bf9eec81688786f97668c75ed538c918ebaf6975/src/assets/Hero-image.svg"
+              alt="Cookbook"
+            />
           </div>
 
           <h1>Get personalized recipes based on items in your fridge</h1>

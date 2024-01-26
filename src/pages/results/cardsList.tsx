@@ -48,7 +48,8 @@ export const CardsList: React.FC<CardListProps> = ({ data, title }) => {
   ) => {
     //if image is broken it gets replaced by placeholder and gets an extra class added for better placeholder styling
     const imgElement = event.currentTarget;
-    imgElement.src = "/src/assets/Card-placeholder.svg";
+    imgElement.src =
+      "https://raw.githubusercontent.com/AndreiPirHu/RecipeGenerator/bf9eec81688786f97668c75ed538c918ebaf6975/src/assets/Card-placeholder.svg";
     imgElement.classList.add("placeholder-image");
   };
 
