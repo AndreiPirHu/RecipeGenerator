@@ -2,20 +2,28 @@ body {
   margin: 0;
 }
 
+html,
+main {
+  background-color: #ebebff;
+}
 .Home #hero-section {
   display: grid;
   justify-content: center;
+  padding-top: 42px;
 }
 
 .Home #hero-section .img-container {
   display: grid;
+  margin: 0 20px;
 }
 
 .Home #hero-section img {
   width: 100%;
-  background-color: #77a977;
-  border-radius: 135px;
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
   margin-top: 15px;
+  height: 300px;
 }
 
 .Home #hero-section h1 {
@@ -30,6 +38,38 @@ body {
 
 .Home h3 {
   margin-left: 10px;
+}
+
+.Home #ingredients-section {
+  max-width: 995px;
+  margin: auto;
+  padding-top: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  background-color: white;
+  padding-left: 30px;
+}
+
+@media (min-width: 1000px) {
+  .Home #ingredients-section {
+    border-radius: 18px;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+  }
+  .Home #hero-section {
+    display: flex;
+  }
+
+  .Home #hero-section img {
+    margin-bottom: 60px;
+  }
+
+  .Home #hero-section h1 {
+    text-align: left;
+    max-width: 519px;
+    padding-left: 46px;
+    margin: 0;
+    margin-top: 83px;
+  }
 }
 
 @media (min-width: 600px) {
@@ -73,7 +113,7 @@ body {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  width: 80vw;
+  padding-left: 3%;
 }
 /*#IngredientsList*/
 .list-item {
@@ -103,6 +143,12 @@ body {
 }
 #IngredientsList .delete-item:hover {
   color: #02020299;
+}
+
+@media (min-width: 600px) {
+  #list {
+    padding-left: 10%;
+  }
 }
 
 /*CSS FOR TOGGLELIST*/
@@ -167,7 +213,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 200;
+  z-index: 1021;
   pointer-events: auto;
 }
 

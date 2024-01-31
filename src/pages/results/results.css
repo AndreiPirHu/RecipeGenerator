@@ -1,4 +1,14 @@
 /* Styling for CARDSLIST*/
+.CardsList h1 {
+  font-family: Paytone One;
+  margin: 15px;
+}
+
+.CardsList #list-cards {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
 .CardsList .card {
   margin-bottom: 20px;
   cursor: pointer;
@@ -27,5 +37,11 @@
   }
   .CardsList .card {
     margin: 20px 20px;
+  }
+}
+
+@media (max-width: 820px) {
+  .CardsList #list-cards {
+    padding-left: 10%;
   }
 }

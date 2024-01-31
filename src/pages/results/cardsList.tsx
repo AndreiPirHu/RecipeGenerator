@@ -67,7 +67,7 @@ export const CardsList: React.FC<CardListProps> = ({ data, title }) => {
     <div className="CardsList">
       <div className="list-container">
         <h1>{title}</h1>
-        <ul id="list">{nodeList}</ul>
+        <ul id="list-cards">{nodeList}</ul>
       </div>
     </div>
   );

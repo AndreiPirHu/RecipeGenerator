@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 80vh;
+  background-color: #ebebff;
 }
 .Login .login-container {
   display: grid;
@@ -11,6 +12,7 @@
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
   width: 85vw;
   max-width: 400px;
+  background-color: white;
 }
 
 .Login .title {
