@@ -15,7 +15,6 @@ type GetRecipesProps = {
 
 export const GetRecipes: React.FC<GetRecipesProps> = ({
   setLoading,
-  setIsCancelled,
   isCancelled,
 }) => {
   let userPreferences = useSelector(
@@ -282,6 +281,11 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({
 
   return (
     <div className="button-container">
+      <p>
+        * Long wait time can be expected due to server startup after period of
+        inactivity
+      </p>
+      <p>* Try making a new request if wait is too long</p>
       <button className="generate-btn" onClick={getRecipes}>
         Generate Recipes
       </button>

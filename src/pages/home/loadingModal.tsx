@@ -4,10 +4,7 @@ type loadingModalProps = {
   loading: boolean;
   setIsCancelled: React.Dispatch<React.SetStateAction<boolean>>;
 };
-export const LoadingModal: React.FC<loadingModalProps> = ({
-  loading,
-  setIsCancelled,
-}) => {
+export const LoadingModal: React.FC<loadingModalProps> = ({ loading }) => {
   const [buttonIsVisible, SetButtonIsVisible] = useState<boolean>(false);
 
   const handleRefresh = () => {
