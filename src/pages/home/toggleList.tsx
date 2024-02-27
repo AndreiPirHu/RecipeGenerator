@@ -147,6 +147,7 @@ export const ToggleList: React.FC<ToggleListProps> = ({
     addData();
     //updates the data in the parent component list
     setData(categoryList);
+    console.log("recreated");
   }, [categoryList]);
 
   return (

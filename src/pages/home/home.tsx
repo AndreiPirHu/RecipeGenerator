@@ -15,6 +15,8 @@ import { GetRecipes } from "./getRecipes";
 
 export const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [isCancelled, setIsCancelled] = useState<boolean>(false);
+
   return (
     <div className="Home">
       <main>
@@ -29,7 +31,7 @@ export const Home = () => {
           <h1>Get personalized recipes based on items in your fridge</h1>
         </section>
         <section id="ingredients-section">
-          <LoadingModal loading={loading} />
+          <LoadingModal loading={loading} setIsCancelled={setIsCancelled} />
           <IngredientsList />
           <CookingFatsList />
           <CuisinesList />
@@ -40,7 +42,11 @@ export const Home = () => {
           <PartySizeList />
           <TimeList />
           <SpecialFocusList />
-          <GetRecipes setLoading={setLoading} />
+          <GetRecipes
+            setLoading={setLoading}
+            setIsCancelled={setIsCancelled}
+            isCancelled={isCancelled}
+          />
         </section>
       </main>
     </div>

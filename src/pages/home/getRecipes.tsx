@@ -9,9 +9,15 @@ import { auth, db } from "../../firebase";
 
 type GetRecipesProps = {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsCancelled: React.Dispatch<React.SetStateAction<boolean>>;
+  isCancelled: boolean;
 };
 
-export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
+export const GetRecipes: React.FC<GetRecipesProps> = ({
+  setLoading,
+  setIsCancelled,
+  isCancelled,
+}) => {
   let userPreferences = useSelector(
     (state: RootState) => state.userPreferences
   );
@@ -20,6 +26,12 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let userPreferenceMessage: string = "";
+
+  const abortController = new AbortController();
+
+  const handleCancel = () => {
+    abortController.abort(); // Abort the fetch request
+  };
 
   const createMessage = () => {
     //resets text before remaking it
@@ -139,7 +151,9 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
 
       const GPTBody = { message: userPreferenceMessage };
 
-      const GPTResponse = await axios.post(url, GPTBody);
+      const GPTResponse = await axios.post(url, GPTBody, {
+        signal: abortController.signal,
+      });
 
       let recipes = JSON.parse(GPTResponse.data.recipes);
       console.log(recipes);
@@ -159,7 +173,9 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
         "https://recipe-generator-backend.onrender.com/generateImages";
       const imgBody = { recipes: recipes };
 
-      const imgResponse = await axios.post(imgUrl, imgBody);
+      const imgResponse = await axios.post(imgUrl, imgBody, {
+        signal: abortController.signal,
+      });
       //images get added to correct recipe in server
       //makes it into the correct object type
       let finishedRecipes: Recipes = { recipes: imgResponse.data.recipes };
@@ -182,7 +198,9 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
         "https://recipe-generator-backend.onrender.com/generateNutrition";
       const edamamBody = { recipes: recipeIngredients };
 
-      const edamamResponse = await axios.post(edamamUrl, edamamBody);
+      const edamamResponse = await axios.post(edamamUrl, edamamBody, {
+        signal: abortController.signal,
+      });
 
       console.log(edamamResponse);
 
@@ -195,6 +213,7 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
       //sends the AI response to redux for results page
       dispatch(actions.addRecipes(finishedRecipes));
       //check if online or not to send to right database storage
+
       if (isLoggedIn) {
         //sends to firestore if online
         const userID = auth.currentUser!.uid;
@@ -217,12 +236,13 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
         addToLocalStorage(finishedRecipes);
       }
 
-      ///removes loading overlay
-      setLoading(false);
       //navigate to results
       navigate("/results");
     } catch (error) {
-      console.log(error);
+      console.error("Error:", error);
+    } finally {
+      ///removes loading overlay
+      setLoading(false);
     }
   };
 
@@ -251,6 +271,14 @@ export const GetRecipes: React.FC<GetRecipesProps> = ({ setLoading }) => {
   useEffect(() => {
     createMessage();
   }, [userPreferences]);
+
+  useEffect(() => {
+    if (isCancelled) {
+      handleCancel();
+      abortController.abort();
+      console.log("being cancelled..");
+    }
+  }, [isCancelled]);
 
   return (
     <div className="button-container">

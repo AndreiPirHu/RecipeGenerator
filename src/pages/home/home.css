@@ -209,8 +209,8 @@ main {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.2);
-  display: flex;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: grid;
   justify-content: center;
   align-items: center;
   z-index: 1021;
@@ -229,6 +229,30 @@ main {
   justify-content: center;
   align-items: center;
   color: #38803e;
+}
+
+.cancel-button {
+  padding: 20px 40px;
+  background-color: #dd3b1a;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
+}
+.red-text {
+  color: red;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+.cancel-container {
+  display: absolute;
+  bottom: 10%;
+}
+.container {
+  display: grid;
+  justify-content: center;
 }
 
 /* /////////// CSS for GetRecipe  /////////////*/
